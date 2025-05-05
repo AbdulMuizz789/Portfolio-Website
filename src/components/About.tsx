@@ -1,10 +1,7 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
-
 const About = () => {
-  return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
+  return <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto">
         <h2 className="section-title">About Me</h2>
         
@@ -18,7 +15,7 @@ const About = () => {
               <h3 className="text-xl font-bold mb-3 text-orange">Education</h3>
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h4 className="font-bold">Bachelor of Engineering in Computer Science and Engineering</h4>
-                <p className="text-gray-600 dark:text-gray-300">[College Name], graduating in 2026</p>
+                <p className="text-gray-600 dark:text-gray-300">MVSR Engineering College, Nadergul, graduating in 2026</p>
               </div>
             </div>
             
@@ -60,8 +57,6 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;
