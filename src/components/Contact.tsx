@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -65,13 +64,11 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Replace these with your actual EmailJS service, template, and public key
-      // You'll need to sign up at emailjs.com and create these
       const result = await emailjs.sendForm(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        'service_rb2buos', 
+        'template_jsp76ys', 
         formRef.current!,
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+        '21xqX2Uw35_NLFVZf'
       );
       
       console.log('Email successfully sent!', result.text);
