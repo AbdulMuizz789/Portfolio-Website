@@ -45,7 +45,10 @@ const Skills = () => {
                       <span className="font-medium">{language.name}</span>
                       <span>{language.progress}%</span>
                     </div>
-                    <Progress value={language.progress} className="h-2 bg-gray-200" indicatorClass="bg-orange" />
+                    <Progress 
+                      value={language.progress} 
+                      className="h-2 bg-gray-200" 
+                    />
                   </div>
                 ))}
               </div>
@@ -63,7 +66,10 @@ const Skills = () => {
                       <span className="font-medium">{framework.name}</span>
                       <span>{framework.progress}%</span>
                     </div>
-                    <Progress value={framework.progress} className="h-2 bg-gray-200" indicatorClass="bg-green" />
+                    <Progress 
+                      value={framework.progress} 
+                      className="h-2 bg-gray-200" 
+                    />
                   </div>
                 ))}
               </div>
@@ -81,7 +87,10 @@ const Skills = () => {
                       <span className="font-medium">{tech.name}</span>
                       <span>{tech.progress}%</span>
                     </div>
-                    <Progress value={tech.progress} className="h-2 bg-gray-200" indicatorClass="bg-orange" />
+                    <Progress 
+                      value={tech.progress} 
+                      className="h-2 bg-gray-200"  
+                    />
                   </div>
                 ))}
               </div>
