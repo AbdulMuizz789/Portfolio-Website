@@ -62,7 +62,7 @@ const Hero = () => {
               <div className="absolute inset-0 bg-orange/20 rounded-full -z-10 translate-x-4 translate-y-4"></div>
               <div className="absolute inset-0 bg-green/20 rounded-full -z-10 -translate-x-4 -translate-y-4"></div>
               <div className="w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
-                <img src="/placeholder.svg" alt="Profile" className="w-full h-full object-cover" />
+                <img alt="Profile" className="w-full h-full object-cover" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
               </div>
             </div>
           </div>
