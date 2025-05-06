@@ -122,6 +122,7 @@ const Contact = () => {
                 
                 <div className="mt-auto">
                   <h4 className="font-bold mb-4">Find me on</h4>
+                  {/* TODO: Add social profile links */}
                   <div className="flex space-x-4">
                     <a href="#" className="w-10 h-10 rounded-full bg-orange flex items-center justify-center text-white hover:bg-orange-dark transition-colors">
                       <Github size={20} />
