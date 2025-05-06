@@ -6,9 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, Twitter, Linkedin, Github, Loader2 } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from '@emailjs/browser';
-
 const Contact = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,23 +17,23 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const {
+      name,
+      value
+    } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
-  
   const validateEmail = (email: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   };
-  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form inputs
     if (!formData.name.trim()) {
       toast({
@@ -42,7 +43,6 @@ const Contact = () => {
       });
       return;
     }
-    
     if (!formData.email.trim() || !validateEmail(formData.email)) {
       toast({
         title: "Valid email required",
@@ -51,7 +51,6 @@ const Contact = () => {
       });
       return;
     }
-    
     if (!formData.message.trim()) {
       toast({
         title: "Message required",
@@ -60,24 +59,15 @@ const Contact = () => {
       });
       return;
     }
-    
     setIsSubmitting(true);
-    
     try {
-      const result = await emailjs.sendForm(
-        'service_rb2buos', 
-        'template_jsp76ys', 
-        formRef.current!,
-        '21xqX2Uw35_NLFVZf'
-      );
-      
+      const result = await emailjs.sendForm('service_rb2buos', 'template_jsp76ys', formRef.current!, '21xqX2Uw35_NLFVZf');
       console.log('Email successfully sent!', result.text);
-      
       toast({
         title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+        description: "Thanks for reaching out. I'll get back to you soon."
       });
-      
+
       // Reset form
       setFormData({
         name: '',
@@ -95,9 +85,7 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-
-  return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-900">
+  return <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto">
         <h2 className="section-title">Contact Me</h2>
         
@@ -117,7 +105,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="font-bold">Email</h4>
-                      <p className="text-gray-600 dark:text-gray-300">[Email Placeholder]</p>
+                      <p className="text-gray-600 dark:text-gray-300">muizzabdul789@gmail.com</p>
                     </div>
                   </div>
                   
@@ -158,55 +146,24 @@ const Contact = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="block font-medium">Name</label>
-                      <Input
-                        id="name"
-                        name="name"
-                        placeholder="Your name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input id="name" name="name" placeholder="Your name" value={formData.name} onChange={handleChange} required />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="email" className="block font-medium">Email</label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="Your email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Input id="email" name="email" type="email" placeholder="Your email" value={formData.email} onChange={handleChange} required />
                     </div>
                   </div>
                   
                   <div className="space-y-2 mb-6">
                     <label htmlFor="message" className="block font-medium">Message</label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Write your message here..."
-                      rows={6}
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                    />
+                    <Textarea id="message" name="message" placeholder="Write your message here..." rows={6} value={formData.message} onChange={handleChange} required />
                   </div>
                   
-                  <Button 
-                    type="submit" 
-                    className="bg-orange hover:bg-orange-dark w-full md:w-auto"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
+                  <Button type="submit" className="bg-orange hover:bg-orange-dark w-full md:w-auto" disabled={isSubmitting}>
+                    {isSubmitting ? <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Sending...
-                      </>
-                    ) : (
-                      "Send Message"
-                    )}
+                      </> : "Send Message"}
                   </Button>
                 </form>
               </CardContent>
@@ -214,8 +171,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Contact;
