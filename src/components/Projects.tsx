@@ -4,29 +4,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink, Github } from 'lucide-react';
 
+//#TODO: Add links.
 const Projects = () => {
   const projects = [
     {
       title: 'Infarmaland',
       description: 'A mobile app to fetch agricultural and real estate land details using ULPIN. Developed using Android Studio (XML front-end) and Firebase (JSON back-end).',
       image: '/placeholder.svg',
-      tags: ['Android', 'Firebase', 'XML', 'JSON'],
+      tags: ['Android', 'Java', 'Firebase', 'XML', 'JSON'],
       githubLink: '#',
-      liveLink: '#'
+      liveLink: '#' 
     },
     {
       title: 'Portfolio Website',
       description: 'Personal portfolio website built with React and Tailwind CSS featuring modern design principles and responsive layout.',
       image: '/placeholder.svg',
       tags: ['React', 'Tailwind CSS', 'JavaScript'],
-      githubLink: '#',
-      liveLink: '#'
-    },
-    {
-      title: 'Task Manager',
-      description: 'A web application for managing daily tasks with features like authentication, task categorization, and reminders.',
-      image: '/placeholder.svg',
-      tags: ['React', 'Node.js', 'Express', 'MongoDB'],
       githubLink: '#',
       liveLink: '#'
     }
