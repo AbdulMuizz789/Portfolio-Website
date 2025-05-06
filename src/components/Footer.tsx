@@ -27,6 +27,7 @@ const Footer = () => {
           </div>
           
           <div>
+            {/* TODO: Add social media links */}
             <h4 className="font-bold text-lg mb-4">Social Media</h4>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange transition-colors">
@@ -43,7 +44,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400">© {new Date().getFullYear()} [Full Name]. All rights reserved.</p>
+          <p className="text-gray-400">© {new Date().getFullYear()} Abdul Muizz. All rights reserved.</p>
           <div className="mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-orange transition-colors mx-2">Privacy Policy</a>
             <a href="#" className="text-gray-400 hover:text-orange transition-colors mx-2">Terms of Service</a>
