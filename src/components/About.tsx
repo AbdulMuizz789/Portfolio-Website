@@ -30,7 +30,17 @@ const About = () => {
               </div>
             </div>
             
-            <Button className="bg-green hover:bg-green-dark">
+            <Button 
+              className="bg-green hover:bg-green-dark"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'https://raw.githubusercontent.com/AbdulMuizz789/PortfolioDocs/master/Summer%20Internship.pdf';
+                link.download = 'Abdul_Muizz_Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+            >
               Download Resume
             </Button>
           </div>
