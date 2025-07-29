@@ -20,8 +20,16 @@ const Projects = () => {
       description: 'Personal portfolio website built with React and Tailwind CSS featuring modern design principles and responsive layout.',
       image: '/placeholder.svg',
       tags: ['React', 'Tailwind CSS', 'JavaScript'],
-      githubLink: '#',
+      githubLink: 'github.com/AbdulMuizz789/Portfolio-Website',
       liveLink: '#'
+    },
+    {
+      title: 'HunarBaazar',
+      description: 'Portal for rural artisans empowerment built with React and Tailwind CSS.',
+      image: '/placeholder.svg',
+      tags: ['React', 'Tailwind CSS', 'JavaScript', 'NodeJS', 'MongoDB'],
+      githubLink: 'github.com/AbdulMuizz789/HunarBazaar',
+      liveLink: 'hunarbazaar.vercel.app'
     }
   ];
 
