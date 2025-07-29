@@ -29,10 +29,10 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-lg mb-4">Social Media</h4>
             <div className="flex space-x-4">
-              <a href="github.com/AbdulMuizz789" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange transition-colors">
+              <a href="https://github.com/AbdulMuizz789" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange transition-colors">
                 <Github size={20} />
               </a>
-              <a href="linkedin.com/in/abdulmuizz789" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange transition-colors">
+              <a href="https://linkedin.com/in/abdulmuizz789" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-orange transition-colors">
                 <Linkedin size={20} />
               </a>
             </div>
