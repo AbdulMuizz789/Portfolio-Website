@@ -3,9 +3,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Twitter, Linkedin, Github, Loader2 } from 'lucide-react';
+import { Mail, Phone, Twitter, Linkedin, Github, Loader2, Shield } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 import emailjs from '@emailjs/browser';
+import { 
+  sanitizeInput, 
+  validateEmail, 
+  validateContent, 
+  formRateLimiter, 
+  getEmailConfig, 
+  getSecureErrorMessage 
+} from '@/lib/security';
 const Contact = () => {
   const {
     toast
@@ -18,67 +26,117 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {
-      name,
-      value
-    } = e.target;
+    const { name, value } = e.target;
+    
+    // Basic input length limits for security
+    const maxLengths = {
+      name: 100,
+      email: 254,
+      message: 2000
+    };
+    
+    const maxLength = maxLengths[name as keyof typeof maxLengths] || 100;
+    const truncatedValue = value.slice(0, maxLength);
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: truncatedValue
     }));
-  };
-  const validateEmail = (email: string) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate form inputs
-    if (!formData.name.trim()) {
+    // Rate limiting check
+    const clientId = 'contact_form'; // In a real app, use IP or user ID
+    if (!formRateLimiter.isAllowed(clientId)) {
+      const remainingTime = formRateLimiter.getRemainingTime(clientId);
       toast({
-        title: "Name required",
-        description: "Please enter your name",
+        title: "Too many attempts",
+        description: `Please wait ${remainingTime} seconds before trying again.`,
         variant: "destructive"
       });
       return;
     }
-    if (!formData.email.trim() || !validateEmail(formData.email)) {
+
+    // Sanitize and validate inputs
+    const sanitizedName = sanitizeInput(formData.name);
+    const sanitizedEmail = sanitizeInput(formData.email);
+    const sanitizedMessage = sanitizeInput(formData.message);
+
+    // Validate sanitized inputs
+    if (!sanitizedName.trim() || sanitizedName.length < 2) {
       toast({
-        title: "Valid email required",
+        title: "Invalid name",
+        description: "Please enter a valid name (minimum 2 characters)",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!sanitizedEmail.trim() || !validateEmail(sanitizedEmail)) {
+      toast({
+        title: "Invalid email",
         description: "Please enter a valid email address",
         variant: "destructive"
       });
       return;
     }
-    if (!formData.message.trim()) {
+
+    const messageValidation = validateContent(sanitizedMessage);
+    if (!messageValidation.isValid) {
       toast({
-        title: "Message required",
-        description: "Please enter your message",
+        title: "Invalid message",
+        description: messageValidation.message || "Please enter a valid message",
         variant: "destructive"
       });
       return;
     }
+
     setIsSubmitting(true);
+    
     try {
-      const result = await emailjs.sendForm('service_rb2buos', 'template_jsp76ys', formRef.current!, '21xqX2Uw35_NLFVZf');
-      console.log('Email successfully sent!', result.text);
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon."
+      const emailConfig = getEmailConfig();
+      
+      // Create a sanitized form data object
+      const sanitizedFormData = {
+        name: sanitizedName,
+        email: sanitizedEmail,
+        message: sanitizedMessage
+      };
+
+      // Create a temporary form with sanitized data
+      const tempForm = document.createElement('form');
+      Object.entries(sanitizedFormData).forEach(([key, value]) => {
+        const input = document.createElement('input');
+        input.name = key;
+        input.value = value;
+        tempForm.appendChild(input);
       });
 
-      // Reset form
+      const result = await emailjs.sendForm(
+        emailConfig.serviceId,
+        emailConfig.templateId,
+        tempForm,
+        emailConfig.publicKey
+      );
+
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+
+      // Reset form with sanitized empty values
       setFormData({
         name: '',
         email: '',
         message: ''
       });
+
     } catch (error) {
-      console.error('Failed to send email:', error);
+      const secureMessage = getSecureErrorMessage(error);
       toast({
         title: "Failed to send message",
-        description: "There was an error sending your message. Please try again later.",
+        description: secureMessage,
         variant: "destructive"
       });
     } finally {
@@ -93,7 +151,10 @@ const Contact = () => {
           <div className="lg:w-1/3">
             <Card className="h-full">
               <CardContent className="p-8 flex flex-col h-full">
-                <h3 className="text-xl font-bold mb-6">Get in Touch</h3>
+                <div className="flex items-center gap-2 mb-6">
+                  <h3 className="text-xl font-bold">Get in Touch</h3>
+                  <Shield size={20} className="text-green" />
+                </div>
                 <p className="text-gray-600 dark:text-gray-300 mb-8">
                   Feel free to reach out if you have a project idea, job opportunity, or just want to say hello!
                 </p>
